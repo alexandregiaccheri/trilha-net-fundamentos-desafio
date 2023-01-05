@@ -3,15 +3,47 @@
 // Coloca o encoding para UTF8 para exibir acentuação
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-decimal precoInicial = 0;
-decimal precoPorHora = 0;
+string ObterDecimal()
+{
+    return Console.ReadLine().Trim().Replace(",", ".");
+}
 
 Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "Digite o preço inicial:");
-precoInicial = Convert.ToDecimal(Console.ReadLine());
+    "Digite o preço inicial:");
+Console.Write("\nR$: ");
 
+decimal precoInicial = 0;
+string precoInicialInput = ObterDecimal();
+Decimal.TryParse(precoInicialInput, out precoInicial);
+
+while (precoInicial == 0)
+{
+    Console.Clear();
+    Console.WriteLine("Entrada invalida! Tente novamente.\n" +
+    "Digite o preço inicial:");
+    Console.Write("\nR$: ");
+    precoInicialInput = ObterDecimal();
+    Decimal.TryParse(precoInicialInput, out precoInicial);
+}
+
+Console.Clear();
 Console.WriteLine("Agora digite o preço por hora:");
-precoPorHora = Convert.ToDecimal(Console.ReadLine());
+Console.Write("\nR$: ");
+
+decimal precoPorHora = 0;
+string precoPorHoraInput = ObterDecimal();
+Decimal.TryParse(precoPorHoraInput, out precoPorHora);
+
+while (precoPorHora == 0)
+{
+    Console.Clear();
+    Console.WriteLine("Entrada invalida! Tente novamente.\n" +
+    "Agora digite o preço por hora:");
+    Console.Write("\nR$: ");
+    precoPorHoraInput = ObterDecimal();
+    Decimal.TryParse(precoPorHoraInput, out precoPorHora);
+}
+
 
 // Instancia a classe Estacionamento, já com os valores obtidos anteriormente
 Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
@@ -28,6 +60,8 @@ while (exibirMenu)
     Console.WriteLine("2 - Remover veículo");
     Console.WriteLine("3 - Listar veículos");
     Console.WriteLine("4 - Encerrar");
+
+    Console.Write("\n> ");
 
     switch (Console.ReadLine())
     {
@@ -48,11 +82,11 @@ while (exibirMenu)
             break;
 
         default:
-            Console.WriteLine("Opção inválida");
+            Console.WriteLine("\nOpção inválida");
             break;
     }
 
-    Console.WriteLine("Pressione uma tecla para continuar");
+    Console.WriteLine("\nPressione ENTER para continuar");
     Console.ReadLine();
 }
 
